@@ -2,5 +2,5 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/doableda/public_html/
-    - /bin/cd dist
+    - cd dist
     - /bin/cp -R spa $DEPLOYPATH

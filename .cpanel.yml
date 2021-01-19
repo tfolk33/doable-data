@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/doableda/public_html/
-    - /cp -R dist $DEPLOYPATH
+    - /bin/cp -R dist $DEPLOYPATH

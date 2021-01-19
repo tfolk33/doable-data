@@ -7,5 +7,5 @@ deployment:
     - /bin/cp -R dist\spa\icons $DEPLOYPATH
     - /bin/cp -R dist\spa\img $DEPLOYPATH
     - /bin/cp -R dist\spa\js $DEPLOYPATH
-    - /bin/cp -R dist\spa\favicon.ico $DEPLOYPATH
-    - /bin/cp -R dist\spa\index.html $DEPLOYPATH
+    - /bin/cp dist\spa\favicon.ico $DEPLOYPATH
+    - /bin/cp dist\spa\index.html $DEPLOYPATH

@@ -2,10 +2,10 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/doableda/public_html/
-    - /bin/cp -R css $DEPLOYPATH
-    - /bin/cp -R fonts $DEPLOYPATH
-    - /bin/cp -R icons $DEPLOYPATH
-    - /bin/cp -R img $DEPLOYPATH
-    - /bin/cp -R js $DEPLOYPATH
-    - /bin/cp favicon.ico $DEPLOYPATH
-    - /bin/cp index.html $DEPLOYPATH
+    - /bin/cp dist\spa\css $DEPLOYPATH
+    - /bin/cp dist\spa\fonts $DEPLOYPATH
+    - /bin/cp dist\spa\icons $DEPLOYPATH
+    - /bin/cp dist\spa\img $DEPLOYPATH
+    - /bin/cp dist\spa\js $DEPLOYPATH
+    - /bin/cp dist\spa\favicon.ico $DEPLOYPATH
+    - /bin/cp dist\spa\index.html $DEPLOYPATH

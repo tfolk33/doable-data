@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 // import example from './module-example'
 import forms from './store-forms'
+import auth from './store-auth'
 Vue.use(Vuex)
 
 /*
@@ -17,7 +18,8 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      forms
+      forms,
+      auth
     },
 
     // enable strict mode (adds overhead!)

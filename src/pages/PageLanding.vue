@@ -23,7 +23,6 @@
       <div class="bg-blue-grey-1 text-grey-10 q-pa-xl text-center">
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe8inP0ea2eFU5e-cct9Nw2i7FnMsPp85HTZLVMgs7fRqk54g/viewform?embedded=true" width="640" height="900" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
       </div>
->>>>>>> noah
   </div>
 </template>
 

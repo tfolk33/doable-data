@@ -7,7 +7,11 @@
         <div class="q-pa-sm row"><q-input v-model="name" filled type="name" hint="Name" /></div>
         <div class="q-pa-sm row"><q-input v-model="tel" filled type="tel" hint="Telephone number" /></div>
         <div class="q-pa-sm row"><q-input v-model="date" filled type="date" hint="Date Needed" /></div>
+<<<<<<< HEAD
         <div class="q-pa-sm row"><q-input v-model="brand" hint="Ski Brand" /></div>
+=======
+        <div class="q-pa-sm row"><q-input v-model="brand" filled type="brand" hint="Ski Brand" /></div>
+>>>>>>> 6e4c2b8d5c0b2670594323d7558cbfb21784f6b7
         <div class="q-pa-sm row"><q-checkbox v-model="hotwaxski" label="Hot Wax-Ski ($15)" /></div>
         <div class="q-pa-sm row"><q-checkbox v-model="waxandedges" label="Wax and Edges ($25)" /></div>
         <div class="q-pa-sm row"><q-checkbox v-model="board" label="Board ($20)"/></div>

@@ -8,6 +8,7 @@ const routes = [
       { path: '/demo', component: () => import('pages/PageCore.vue') },
       { path: '/auth', component: () => import('pages/PageAuth.vue') },
       { path: '/form3', component: () => import('pages/Form3/Form3.vue') },
+      { path: '/dashboard', component: () => import('src/pages/Dashboard/Dashboard.vue') },
       { path: '/form', component: () => import('pages/PageForm.vue') }
     ]
   },

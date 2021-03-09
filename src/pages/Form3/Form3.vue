@@ -115,7 +115,6 @@
         v-model="skier1.gear.helmet"
         label="Helmet / Other"
       />
-      <q-input class="q-pa-sm" filled v-model=""/>
 
       <hr />
       <h5>Skier/Rider 2</h5>

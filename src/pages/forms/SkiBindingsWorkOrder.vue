@@ -3,10 +3,6 @@
       <div class="q-pa-sm row"><h4 style="margin: 0">Personal Information and Skier Agreement</h4></div>
       <hr>
       <br>
-      <form @submit="sendLink" class="q-gutter-md">
-        <div class="q-pa-sm col"><q-input v-model="sendEmail" filled hint="Email to send form to" /></div>
-        <div class="q-pa-sm row"><q-btn label="Send Form to Email" type="submit" color="primary"/></div>
-      </form>
       <q-form @submit="onSubmit" class="q-gutter-md">
         <div class="q-pa-sm row"><q-input v-model="responseToSubmit.data.datein" filled type="date" hint="Date In" /></div>
         <div class="q-pa-sm row"><q-input v-model="responseToSubmit.data.datedue" filled type="date" hint="Date Due" /></div>
@@ -113,7 +109,6 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { sendSignInLink } from 'src/functions/send-email-link'
 
 export default {
   beforeMount: function () {
@@ -272,10 +267,6 @@ export default {
         icon: 'cloud_done',
         message: 'Submitted'
       })
-    },
-    sendLink () {
-      console.log('email', this.sendEmail)
-      sendSignInLink(this.sendEmail)
     }
   }
 }

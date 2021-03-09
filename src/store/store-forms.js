@@ -1,84 +1,105 @@
+import { uid } from 'quasar'
+import { firebaseAuth, firebaseDb } from 'boot/firebase'
+import { showErrorMessage } from 'src/functions/function-show-error-message'
+import Vue from 'vue'
+
 const state = {
-  forms: [
-    {
-      id: 'q4',
-      title: 'Quarter 4 Report',
-      data: {
-        s1: {
-          type: 'PromptAnswer',
-          prompt: 'What is your child\'s GPA?'
-        }
-      }
-    },
-    {
-      id: 'q1',
-      title: 'Quarter 1 Report',
-      data: {
-        s1: {
-          type: 'PromptAnswer',
-          prompt: 'What is your child\'s favorite color?'
-        }
-      }
-    }
-  ],
-  currentForm: 'q4'
+  responses: {},
+  currentForm: 'RepairOrder',
+  responsesDownloaded: false
 }
 
 const mutations = {
   setCurrentForm (state, value) {
     state.currentForm = value
+  },
+  setResponsesDownloaded (state, value) {
+    state.responsesDownloaded = value
+  },
+  addResponse (state, payload) {
+    console.log('add:', payload)
+    Vue.set(state.responses, payload.id, payload.data)
   }
 }
 
 const actions = {
+  addResponse ({ dispatch, commit }, response) {
+    console.log('payload:', response)
+    const responseId = uid()
+    const payload = {
+      formId: response.formId,
+      id: responseId,
+      data: response.data
+    }
+    dispatch('fbAddResponse', payload)
+    commit('addResponse', payload)
+  },
+  // eslint-disable-next-line no-empty-pattern
+  fbAddResponse ({ }, response) {
+    console.log('payload:', response)
+    const userId = firebaseAuth.currentUser.uid
+    const taskRef = firebaseDb.ref(userId + '/' + response.formId + '/responses/' + response.id)
+    taskRef.set(response.data, error => {
+      if (error) {
+        showErrorMessage(error.message)
+      }
+      // else {
+      // Notify.create(" added!")
+      // }
+    })
+  },
+  fbReadData ({ commit }) {
+    const userId = firebaseAuth.currentUser.uid
+    const userResponses = firebaseDb.ref(userId)
+    // Initial check for data
+    userResponses.once('value', snapshot => {
+      commit('setResponsesDownloaded', true)
+    }, error => {
+      showErrorMessage(error.message)
+      this.$router.replace('/auth')
+    })
+
+    // child added
+    userResponses.on('child_added', snapshot => {
+      const response = snapshot.val()
+      // console.log('snapshot: ', snapshot)
+      // console.log('response: ', response)
+      const payload = {
+        id: snapshot.key,
+        data: response
+      }
+      console.log('payload: ', payload)
+      commit('addResponse', payload)
+    })
+  }
 }
 
 const getters = {
-  formsSorted: (state) => {
-    const formsSorted = {},
-      keysOrdered = Object.keys(state.forms)
-
-    keysOrdered.sort((a, b) => {
-      const formAProp = state.forms[a][state.sort].toLowerCase(),
-        formBProp = state.forms[b][state.sort].toLowerCase()
-
-      if (formAProp > formBProp) return 1
-      else if (formAProp < formBProp) return -1
-      else return 0
+  getColumns: (state) => {
+    const cols = []
+    const data = state.responses[state.currentForm].columns
+    Object.keys(data).forEach(function (key) {
+      cols.push(data[key])
     })
-
-    keysOrdered.forEach((key) => {
-      formsSorted[key] = state.forms[key]
+    console.log(cols)
+    return cols
+  },
+  getResponses: (state) => {
+    const responses = []
+    const data = state.responses[state.currentForm].responses
+    Object.keys(data).forEach(function (key) {
+      responses.push(data[key])
     })
-
-    return formsSorted
+    return responses
   },
-  formsFiltered: (state, getters) => {
-    const formsSorted = getters.tasksSorted,
-      formsFiltered = {}
-    if (state.search) {
-      Object.keys(formsSorted).forEach(function (key) {
-        const form = formsSorted[key]
-
-        if (form.name.toLowerCase().includes(state.search.toLowerCase())) {
-          formsFiltered[key] = form
-        }
-      })
-      return formsFiltered
-    }
-    return formsSorted
-  },
-  allForms: (state, getters) => {
-    const formsFiltered = getters.formsFiltered
-    const forms = {}
-    Object.keys(formsFiltered).forEach(function (key) {
-      const form = formsFiltered[key]
-      forms[key] = form
+  getFormNames: (state) => {
+    const names = []
+    const data = state.responses
+    Object.keys(data).forEach(function (key) {
+      names.push(data[key].name)
     })
-    return forms
-  },
-  getForms: (state) => {
-    return state.forms
+    console.log(names)
+    return names
   }
 }
 

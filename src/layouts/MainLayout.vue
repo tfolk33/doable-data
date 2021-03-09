@@ -10,6 +10,22 @@
           DoableData
         </q-toolbar-title>
       </q-toolbar>
+
+      <q-btn
+      v-if="!loggedIn"
+      @click="login"
+      flat
+      icon-right="account_circle"
+      label="Login"
+      class="absolute-right" />
+
+      <q-btn
+      v-else
+      @click="logout"
+      flat
+      icon-right="account_circle"
+      label="Logout"
+      class="absolute-right" />
     </q-header>
 
     <q-page-container>
@@ -20,8 +36,32 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import { SessionStorage } from 'quasar'
 
 export default {
-  name: 'MainLayout'
+  name: 'MainLayout',
+  data () {
+    return {
+      loggedIn: SessionStorage.getItem('LoggedIn')
+    }
+  },
+  computed: {
+    // ...mapState('auth', ['loggedIn'])
+    // ...mapGetters('auth', ['getLoginStatus'])
+  },
+  methods: {
+    ...mapActions('auth', ['logoutUser']),
+    login () {
+      SessionStorage.set('LoggedIn', false)
+      this.loggedIn = SessionStorage.getItem('LoggedIn')
+      this.$router.replace('/auth')
+    },
+    logout () {
+      SessionStorage.set('LoggedIn', false)
+      this.loggedIn = SessionStorage.getItem('LoggedIn')
+      this.logoutUser()
+    }
+  }
 }
 </script>

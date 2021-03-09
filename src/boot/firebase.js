@@ -7,6 +7,7 @@ import 'firebase/database'
 var firebaseConfig = {
   apiKey: 'AIzaSyCvCRpBxBaa4orYy6xjapwDUB2nQD28Vnc',
   authDomain: 'doabledata.firebaseapp.com',
+  databaseURL: 'https://doabledata-default-rtdb.firebaseio.com/',
   projectId: 'doabledata',
   storageBucket: 'doabledata.appspot.com',
   messagingSenderId: '761507761345',

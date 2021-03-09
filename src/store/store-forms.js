@@ -5,7 +5,7 @@ import Vue from 'vue'
 
 const state = {
   responses: {},
-  currentForm: 'RepairOrder',
+  currentForm: 'ski-repair',
   responsesDownloaded: false
 }
 
@@ -17,14 +17,14 @@ const mutations = {
     state.responsesDownloaded = value
   },
   addResponse (state, payload) {
-    console.log('add:', payload)
+    // console.log('add:', payload)
     Vue.set(state.responses, payload.id, payload.data)
   }
 }
 
 const actions = {
   addResponse ({ dispatch, commit }, response) {
-    console.log('payload:', response)
+    // console.log('payload:', response)
     const responseId = uid()
     const payload = {
       formId: response.formId,
@@ -36,7 +36,7 @@ const actions = {
   },
   // eslint-disable-next-line no-empty-pattern
   fbAddResponse ({ }, response) {
-    console.log('payload:', response)
+    // console.log('payload:', response)
     const userId = firebaseAuth.currentUser.uid
     const taskRef = firebaseDb.ref(userId + '/' + response.formId + '/responses/' + response.id)
     taskRef.set(response.data, error => {
@@ -50,9 +50,9 @@ const actions = {
   },
   fbReadData ({ commit }) {
     const userId = firebaseAuth.currentUser.uid
-    const userResponses = firebaseDb.ref(userId)
+    const userData = firebaseDb.ref(userId)
     // Initial check for data
-    userResponses.once('value', snapshot => {
+    userData.once('value', () => {
       commit('setResponsesDownloaded', true)
     }, error => {
       showErrorMessage(error.message)
@@ -60,7 +60,7 @@ const actions = {
     })
 
     // child added
-    userResponses.on('child_added', snapshot => {
+    userData.on('child_added', snapshot => {
       const response = snapshot.val()
       // console.log('snapshot: ', snapshot)
       // console.log('response: ', response)
@@ -68,20 +68,27 @@ const actions = {
         id: snapshot.key,
         data: response
       }
-      console.log('payload: ', payload)
+      // console.log('payload: ', payload)
       commit('addResponse', payload)
     })
   }
 }
 
 const getters = {
+  getFormIds: (state) => {
+    if (state.responses) {
+      return Object.keys(state.responses)
+    } else {
+      return []
+    }
+  },
   getColumns: (state) => {
     const cols = []
     const data = state.responses[state.currentForm].columns
     Object.keys(data).forEach(function (key) {
       cols.push(data[key])
     })
-    console.log(cols)
+    // console.log(cols)
     return cols
   },
   getResponses: (state) => {
@@ -92,13 +99,17 @@ const getters = {
     })
     return responses
   },
+  getFormNameById: (state) => (id) => {
+    const data = state.responses
+    return data[id].name
+  },
   getFormNames: (state) => {
     const names = []
     const data = state.responses
     Object.keys(data).forEach(function (key) {
       names.push(data[key].name)
     })
-    console.log(names)
+    // console.log(names)
     return names
   }
 }

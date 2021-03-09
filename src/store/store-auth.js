@@ -8,7 +8,7 @@ const state = {
 
 const mutations = {
   setLoggedIn (state, value) {
-    console.log('logged status: ', value)
+    // console.log('logged status: ', value)
     state.loggedIn = value
   }
 }
@@ -20,12 +20,13 @@ const actions = {
     firebaseAuth.createUserWithEmailAndPassword(
       payload.email, payload.password)
       .then(response => {
+        const uid = response.user.uid
         commit('setLoggedIn', true)
         SessionStorage.set('LoggedIn', true)
-        this.$router.push('/form')
+        this.$router.push(`/dashboard/${uid}`)
         dispatch('forms/fbReadData', null, { root: true })
         Loading.hide()
-        console.log('response: ', response)
+        // console.log('response: ', response)
       })
       .catch(error => {
         showErrorMessage(error.message)
@@ -37,12 +38,13 @@ const actions = {
     firebaseAuth.signInWithEmailAndPassword(
       payload.email, payload.password)
       .then(response => {
+        const uid = response.user.uid
         commit('setLoggedIn', true)
         SessionStorage.set('LoggedIn', true)
-        this.$router.push('/form')
+        this.$router.push(`/dashboard/${uid}`)
         Loading.hide()
         dispatch('forms/fbReadData', null, { root: true })
-        console.log('response: ', response)
+        // console.log('response: ', response)
       })
       .catch(error => {
         showErrorMessage(error.message)

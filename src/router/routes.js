@@ -6,9 +6,11 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/PageLanding.vue') },
       { path: '/auth', component: () => import('pages/PageAuth.vue') },
-      { path: '/form3', component: () => import('pages/Form3/Form3.vue') },
-      { path: '/dashboard', component: () => import('src/pages/Dashboard/Dashboard.vue') },
-      { path: '/form', component: () => import('pages/PageForm.vue') }
+      { path: '/dashboard/:uid', component: () => import('src/pages/Dashboard/Dashboard.vue') },
+      { path: '/dashboard/:uid/data/:formId', component: () => import('src/pages/Dashboard/FormData.vue') },
+      { path: '/forms/:uid/ski-repair', component: () => import('src/pages/forms/SkiRepair.vue') },
+      { path: '/forms/:uid/ski-rental-agreement', component: () => import('src/pages/forms/SkiRentalAgreement.vue') },
+      { path: '/forms/:uid/ski-bindings-work-order', component: () => import('src/pages/forms/SkiBindingsWorkOrder.vue') }
     ]
   },
 

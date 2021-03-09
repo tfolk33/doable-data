@@ -1,5 +1,5 @@
 <template>
-  <div class="form3 row">
+  <div class="q-pa-lg row" style="padding: 5% 10% 10% 10%">
     <q-form class="form">
       <div class="q-pa-sm row"><h4 class="q-ma-none">Rental Agreement</h4></div>
       <hr />
@@ -73,7 +73,7 @@
       <div>Age Group</div>
       <q-radio v-model="skier1.gear.sole.ageGroup" val="ADULT" label="Adult" />
       <q-radio
-        v-model="skier1.gear.sole.type"
+        v-model="skier1.gear.sole.ageGroup"
         val="CHILDREN"
         label="Children"
       />
@@ -164,7 +164,7 @@
       <div>Age Group</div>
       <q-radio v-model="skier2.gear.sole.ageGroup" val="ADULT" label="Adult" />
       <q-radio
-        v-model="skier2.gear.sole.type"
+        v-model="skier2.gear.sole.ageGroup"
         val="CHILDREN"
         label="Children"
       />
@@ -375,11 +375,12 @@ export default {
   display: inline-block;
   background-color: wheat;
   width: calc(65ch + 6rem);
+  background-color: rgb(11, 86, 105);
 }
 
 .agreement .heading {
   text-align: center;
-  border-bottom: 1px solid black;
+  color: white;
 }
 
 .agreement .content {
@@ -387,7 +388,6 @@ export default {
   margin: 2rem 2rem;
   padding: 1rem;
   max-width: calc(65ch + 2rem);
-  border: 1px solid black;
-  background-color: #fdf0dd;
+  color: white;
 }
 </style>

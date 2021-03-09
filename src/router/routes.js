@@ -5,9 +5,9 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/PageLanding.vue') },
-      { path: '/demo', component: () => import('pages/PageCore.vue') },
       { path: '/auth', component: () => import('pages/PageAuth.vue') },
-      { path: '/form', component: () => import('pages/PageForm.vue') }
+      { path: '/form', component: () => import('pages/PageForm.vue') },
+      { path: '/data', component: () => import('pages/PageData.vue') }
     ]
   },
 

@@ -304,54 +304,38 @@ export default {
       city: '',
       state: '',
       zip: null,
-      skier1: {
-        info: {
-          type: null,
-          rider: '',
-          age: null,
-          height: null,
-          weight: null
-        },
-        gear: {
-          bootsModel: '',
-          bindingType: '',
-          sole: {
-            length: null,
-            type: '',
-            ageGroup: ''
-          },
-          skierCode: '',
-          skiSnowboard: '',
-          poles: '',
-          helmet: '',
-          techSignature: '',
-          boots: ''
-        }
-      },
-      skier2: {
-        info: {
-          type: null,
-          rider: '',
-          age: null,
-          height: null,
-          weight: null
-        },
-        gear: {
-          bootsModel: '',
-          bindingType: '',
-          sole: {
-            length: null,
-            type: '',
-            ageGroup: ''
-          },
-          skierCode: '',
-          skiSnowboard: '',
-          poles: '',
-          helmet: '',
-          techSignature: '',
-          boots: ''
-        }
-      }
+      skier1type: null,
+      skier1rider: '',
+      skier1age: null,
+      skier1height: null,
+      skier1weight: null,
+      skier1bootsModel: '',
+      skier1bindingType: '',
+      skier1soleLength: null,
+      skier1soleType: '',
+      skier1ageGroup: '',
+      skier1Code: '',
+      skier1skiSnowboard: '',
+      skier1poles: '',
+      skier1helmet: '',
+      skier1techSignature: '',
+      skier1boots: '',
+      skier2type: null,
+      skier2rider: '',
+      skier2age: null,
+      skier2height: null,
+      skier2weight: null,
+      skier2bootsModel: '',
+      skier2bindingType: '',
+      skier2soleLength: null,
+      skier2soleType: '',
+      skier2ageGroup: '',
+      skier2Code: '',
+      skier2skiSnowboard: '',
+      skier2poles: '',
+      skier2helmet: '',
+      skier2techSignature: '',
+      skier2boots: ''
     }
   }
 }

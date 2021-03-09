@@ -6,7 +6,7 @@ import Vue from 'vue'
 const state = {
   responses: {},
   currentForm: 'ski-repair',
-  responsesDownloaded: false
+  companyName: ''
 }
 
 const mutations = {
@@ -19,6 +19,10 @@ const mutations = {
   addResponse (state, payload) {
     // console.log('add:', payload)
     Vue.set(state.responses, payload.id, payload.data)
+  },
+  setCompanyName (state, name) {
+    // console.log('add:', payload)
+    state.companyName = name
   }
 }
 
@@ -32,7 +36,8 @@ const actions = {
       data: response.data
     }
     dispatch('fbAddResponse', payload)
-    commit('addResponse', payload)
+    dispatch('fbReadData')
+    // commit('addResponse', payload)
   },
   // eslint-disable-next-line no-empty-pattern
   fbAddResponse ({ }, response) {
@@ -52,8 +57,9 @@ const actions = {
     const userId = firebaseAuth.currentUser.uid
     const userData = firebaseDb.ref(userId)
     // Initial check for data
-    userData.once('value', () => {
-      commit('setResponsesDownloaded', true)
+    userData.once('value', snapshot => {
+      console.log('val:', snapshot.val())
+      commit('setCompanyName', snapshot.val().displayName)
     }, error => {
       showErrorMessage(error.message)
       this.$router.replace('/auth')
@@ -76,11 +82,14 @@ const actions = {
 
 const getters = {
   getFormIds: (state) => {
-    if (state.responses) {
-      return Object.keys(state.responses)
-    } else {
-      return []
-    }
+    const ids = []
+    const data = state.responses
+    Object.keys(data).forEach(function (key) {
+      if (key !== 'displayName') {
+        ids.push(key)
+      }
+    })
+    return ids
   },
   getColumns: (state) => {
     const cols = []
@@ -107,10 +116,15 @@ const getters = {
     const names = []
     const data = state.responses
     Object.keys(data).forEach(function (key) {
-      names.push(data[key].name)
+      if (key !== 'displayName') {
+        names.push(data[key].name)
+      }
     })
     // console.log(names)
     return names
+  },
+  getCompanyName: (state) => {
+    return firebaseDb.ref(firebaseAuth.currentUser.uid)
   }
 }
 

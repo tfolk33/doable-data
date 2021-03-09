@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-lg row" style="padding: 5% 10% 10% 10%">
-    <q-form class="form">
+    <q-form @submit="onSubmit" class="form">
       <div class="q-pa-sm row"><h4 class="q-ma-none">Rental Agreement</h4></div>
       <hr />
       <br />
@@ -9,203 +9,218 @@
         <q-input
           class="q-pa-sm"
           filled
-          v-model="firstName"
+          v-model="responseToSubmit.data.firstName"
           label="First Name"
         />
-        <q-input class="q-pa-sm" filled v-model="lastName" label="Last Name" />
+        <q-input class="q-pa-sm" filled v-model="responseToSubmit.data.lastName" label="Last Name" />
       </div>
       <q-input
         class="q-pa-sm"
         filled
-        v-model="address"
+        v-model="responseToSubmit.data.address"
         label="Home Address Street"
       />
       <div class="row full-width">
-        <q-input class="q-pa-sm" filled v-model="city" label="City" />
-        <q-input class="q-pa-sm" filled v-model="state" label="State" />
-        <q-input class="q-pa-sm" filled v-model="zip" label="ZIP" />
+        <q-input class="q-pa-sm" filled v-model="responseToSubmit.data.city" label="City" />
+        <q-input class="q-pa-sm" filled v-model="responseToSubmit.data.state" label="State" />
+        <q-input class="q-pa-sm" filled v-model="responseToSubmit.data.zip" label="ZIP" />
       </div>
       <hr />
       <h5>Skier/Rider 1</h5>
       <div>Skier Type</div>
-      <q-radio v-model="skier1.info.type" :val="1" label="I" />
-      <q-radio v-model="skier1.info.type" :val="2" label="II" />
-      <q-radio v-model="skier1.info.type" :val="3" label="III" />
+      <q-radio v-model="responseToSubmit.data.skier1type" :val="1" label="I" />
+      <q-radio v-model="responseToSubmit.data.skier1type" :val="2" label="II" />
+      <q-radio v-model="responseToSubmit.data.skier1type" :val="3" label="III" />
       <div>Rider</div>
-      <q-radio v-model="skier1.info.rider" val="reg" label="Regular" />
-      <q-radio v-model="skier1.info.rider" val="goofy" label="Goofy" />
+      <q-radio v-model="responseToSubmit.data.skier1rider" val="reg" label="Regular" />
+      <q-radio v-model="responseToSubmit.data.skier1rider" val="goofy" label="Goofy" />
       <q-input
         class="q-pa-sm"
         filled
-        v-model.number="skier1.info.age"
+        v-model.number="responseToSubmit.data.skier1age"
         type="number"
         label="Age"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model.number="skier1.info.weight"
+        v-model.number="responseToSubmit.data.skier1height"
+        type="number"
+        label="Height"
+      />
+      <q-input
+        class="q-pa-sm"
+        filled
+        v-model.number="responseToSubmit.data.skier1weight"
         type="number"
         label="Weight (lbs)"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier1.gear.bootsModel"
+        v-model="responseToSubmit.data.skier1bootsModel"
         label="Boots Model"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier1.gear.sole.length"
+        v-model="responseToSubmit.data.skier1soleLength"
         label="Sole Length (mm)"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier1.gear.skierCode"
+        v-model="responseToSubmit.data.skier1Code"
         label="Skier Code"
       />
       <div>Sole Type</div>
-      <q-radio v-model="skier1.gear.sole.type" val="ALPINE" label="ALPINE" />
-      <q-radio v-model="skier1.gear.sole.type" val="WTR" label="WTR" />
-      <q-radio v-model="skier1.gear.sole.type" val="AT" label="AT" />
+      <q-radio v-model="responseToSubmit.data.skier1soleType" val="ALPINE" label="ALPINE" />
+      <q-radio v-model="responseToSubmit.data.skier1soleType" val="WTR" label="WTR" />
+      <q-radio v-model="responseToSubmit.data.skier1soleType" val="AT" label="AT" />
       <div>Age Group</div>
-      <q-radio v-model="skier1.gear.sole.ageGroup" val="ADULT" label="Adult" />
+      <q-radio v-model="responseToSubmit.data.skier1ageGroup" val="ADULT" label="Adult" />
       <q-radio
-        v-model="skier1.gear.sole.ageGroup"
+        v-model="responseToSubmit.data.skier1ageGroup"
         val="CHILDREN"
         label="Children"
       />
       <div>Binding Type</div>
-      <q-radio v-model="skier1.gear.bindingType" val="ALPINE" label="ALPINE" />
+      <q-radio v-model="responseToSubmit.data.skier1bindingType" val="ALPINE" label="ALPINE" />
       <q-radio
-        v-model="skier1.gear.bindingType"
+        v-model="responseToSubmit.data.skier1bindingType"
         val="DUAL/WTR"
         label="DUAL/WTR"
       />
-      <q-radio v-model="skier1.gear.bindingType" val="AT" label="AT" />
+      <q-radio v-model="responseToSubmit.data.skier1bindingType" val="AT" label="AT" />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier1.gear.skiSnowboard"
+        v-model="responseToSubmit.data.skier1skiSnowboard"
         label="Skis / Snowboard"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier1.gear.boots"
+        v-model="responseToSubmit.data.skier1boots"
         label="Boots"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier1.gear.poles"
+        v-model="responseToSubmit.data.skier1poles"
         label="Poles"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier1.gear.techSignature"
+        v-model="responseToSubmit.data.skier1techSignature"
         label="Tech Signature"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier1.gear.helmet"
+        v-model="responseToSubmit.data.skier1helmet"
         label="Helmet / Other"
       />
 
       <hr />
       <h5>Skier/Rider 2</h5>
       <div>Skier Type</div>
-      <q-radio v-model="skier2.info.type" :val="1" label="I" />
-      <q-radio v-model="skier2.info.type" :val="2" label="II" />
-      <q-radio v-model="skier2.info.type" :val="3" label="III" />
+      <q-radio v-model="responseToSubmit.data.skier2type" :val="1" label="I" />
+      <q-radio v-model="responseToSubmit.data.skier2type" :val="2" label="II" />
+      <q-radio v-model="responseToSubmit.data.skier2type" :val="3" label="III" />
       <div>Rider</div>
-      <q-radio v-model="skier2.info.rider" val="reg" label="Regular" />
-      <q-radio v-model="skier2.info.rider" val="goofy" label="Goofy" />
+      <q-radio v-model="responseToSubmit.data.skier2rider" val="reg" label="Regular" />
+      <q-radio v-model="responseToSubmit.data.skier2rider" val="goofy" label="Goofy" />
       <q-input
         class="q-pa-sm"
         filled
-        v-model.number="skier2.info.age"
+        v-model.number="responseToSubmit.data.skier2age"
         type="number"
         label="Age"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model.number="skier2.info.weight"
+        v-model.number="responseToSubmit.data.skier2height"
+        type="number"
+        label="Height"
+      />
+      <q-input
+        class="q-pa-sm"
+        filled
+        v-model.number="responseToSubmit.data.skier2weight"
         type="number"
         label="Weight (lbs)"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier2.gear.bootsModel"
+        v-model="responseToSubmit.data.skier2bootsModel"
         label="Boots Model"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier2.gear.sole.length"
+        v-model="responseToSubmit.data.skier2soleLength"
         label="Sole Length (mm)"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier2.gear.skierCode"
+        v-model="responseToSubmit.data.skier2Code"
         label="Skier Code"
       />
       <div>Sole Type</div>
-      <q-radio v-model="skier2.gear.sole.type" val="ALPINE" label="ALPINE" />
-      <q-radio v-model="skier2.gear.sole.type" val="WTR" label="WTR" />
-      <q-radio v-model="skier2.gear.sole.type" val="AT" label="AT" />
+      <q-radio v-model="responseToSubmit.data.skier2soleType" val="ALPINE" label="ALPINE" />
+      <q-radio v-model="responseToSubmit.data.skier2soleType" val="WTR" label="WTR" />
+      <q-radio v-model="responseToSubmit.data.skier2soleType" val="AT" label="AT" />
       <div>Age Group</div>
-      <q-radio v-model="skier2.gear.sole.ageGroup" val="ADULT" label="Adult" />
+      <q-radio v-model="responseToSubmit.data.skier2ageGroup" val="ADULT" label="Adult" />
       <q-radio
-        v-model="skier2.gear.sole.ageGroup"
+        v-model="responseToSubmit.data.skier2ageGroup"
         val="CHILDREN"
         label="Children"
       />
       <div>Binding Type</div>
-      <q-radio v-model="skier2.gear.bindingType" val="ALPINE" label="ALPINE" />
+      <q-radio v-model="responseToSubmit.data.skier2bindingType" val="ALPINE" label="ALPINE" />
       <q-radio
-        v-model="skier2.gear.bindingType"
+        v-model="responseToSubmit.data.skier2bindingType"
         val="DUAL/WTR"
         label="DUAL/WTR"
       />
-      <q-radio v-model="skier2.gear.bindingType" val="AT" label="AT" />
+      <q-radio v-model="responseToSubmit.data.skier2bindingType" val="AT" label="AT" />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier2.gear.skiSnowboard"
+        v-model="responseToSubmit.data.skier2skiSnowboard"
         label="Skis / Snowboard"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier2.gear.boots"
+        v-model="responseToSubmit.data.skier2boots"
         label="Boots"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier2.gear.poles"
+        v-model="responseToSubmit.data.skier2poles"
         label="Poles"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier2.gear.techSignature"
+        v-model="responseToSubmit.data.skier2techSignature"
         label="Tech Signature"
       />
       <q-input
         class="q-pa-sm"
         filled
-        v-model="skier2.gear.helmet"
+        v-model="responseToSubmit.data.skier2helmet"
         label="Helmet / Other"
       />
+      <div class="q-pa-sm row"><q-btn label="Submit" type="submit" color="primary"/></div>
     </q-form>
     <div class="agreement">
       <div class="heading q-pa-md text-h4">
@@ -294,64 +309,72 @@
     </div>
   </div>
 </template>
+
 <script>
+import { mapActions } from 'vuex'
+
 export default {
+  beforeMount: function () {
+    console.log(this.$store)
+    this.$store.commit('forms/setCurrentForm', 'ski-rental-agreement')
+  },
   data () {
     return {
-      firstName: '',
-      lastName: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: null,
-      skier1: {
-        info: {
-          type: null,
-          rider: '',
-          age: null,
-          height: null,
-          weight: null
-        },
-        gear: {
-          bootsModel: '',
-          bindingType: '',
-          sole: {
-            length: null,
-            type: '',
-            ageGroup: ''
-          },
-          skierCode: '',
-          skiSnowboard: '',
-          poles: '',
-          helmet: '',
-          techSignature: '',
-          boots: ''
-        }
-      },
-      skier2: {
-        info: {
-          type: null,
-          rider: '',
-          age: null,
-          height: null,
-          weight: null
-        },
-        gear: {
-          bootsModel: '',
-          bindingType: '',
-          sole: {
-            length: null,
-            type: '',
-            ageGroup: ''
-          },
-          skierCode: '',
-          skiSnowboard: '',
-          poles: '',
-          helmet: '',
-          techSignature: '',
-          boots: ''
+      responseToSubmit: {
+        formId: 'ski-rental-agreement',
+        data: {
+          firstName: '',
+          lastName: '',
+          address: '',
+          city: '',
+          state: '',
+          zip: null,
+          skier1type: null,
+          skier1rider: '',
+          skier1age: null,
+          skier1height: null,
+          skier1weight: null,
+          skier1bootsModel: '',
+          skier1bindingType: '',
+          skier1soleLength: null,
+          skier1soleType: '',
+          skier1ageGroup: '',
+          skier1Code: '',
+          skier1skiSnowboard: '',
+          skier1poles: '',
+          skier1helmet: '',
+          skier1techSignature: '',
+          skier1boots: '',
+          skier2type: null,
+          skier2rider: '',
+          skier2age: null,
+          skier2height: null,
+          skier2weight: null,
+          skier2bootsModel: '',
+          skier2bindingType: '',
+          skier2soleLength: null,
+          skier2soleType: '',
+          skier2ageGroup: '',
+          skier2Code: '',
+          skier2skiSnowboard: '',
+          skier2poles: '',
+          skier2helmet: '',
+          skier2techSignature: '',
+          skier2boots: ''
         }
       }
+    }
+  },
+  methods: {
+    ...mapActions('forms', ['addResponse']),
+    onSubmit () {
+      this.addResponse(this.responseToSubmit)
+      this.$q.notify({
+        color: 'green-4',
+        textColor: 'white',
+        icon: 'cloud_done',
+        message: 'Submitted'
+      })
     }
   }
 }

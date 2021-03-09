@@ -1,10 +1,6 @@
 <template>
   <div class="q-pa-lg" style="padding: 5% 10% 10% 10%">
       <div class="q-pa-sm row"><h4 style="margin: 0">Repair Order</h4></div>
-      <form v-if="!showSendLink" @submit="sendLink" class="q-gutter-md">
-        <div class="q-pa-sm col"><q-input v-model="sendEmail" filled hint="Email to send form to" /></div>
-        <div class="q-pa-sm row"><q-btn label="Send Form to Email" type="submit" color="primary"/></div>
-      </form>
       <hr>
       <br>
       <q-form @submit="onSubmit" class="q-gutter-md">
@@ -29,12 +25,16 @@ import { sendSignInLink } from 'src/functions/send-email-link'
 import { SessionStorage } from 'quasar'
 
 export default {
+  beforeMount: function () {
+    console.log(this.$store)
+    this.$store.commit('forms/setCurrentForm', 'ski-repair')
+  },
   data () {
     return {
       showSendLink: SessionStorage.getItem('formVisited'),
       sendEmail: '',
       responseToSubmit: {
-        formId: 'RepairOrder',
+        formId: 'ski-repair',
         data: {
           name: '',
           tel: '',

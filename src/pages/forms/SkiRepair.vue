@@ -3,6 +3,10 @@
       <div class="q-pa-sm row"><h4 style="margin: 0">Repair Order</h4></div>
       <hr>
       <br>
+      <form v-if="!showSendLink" @submit="sendLink" class="q-gutter-md">
+        <div class="q-pa-sm col"><q-input v-model="sendEmail" filled hint="Email to send form to" /></div>
+        <div class="q-pa-sm row"><q-btn label="Send Form to Email" type="submit" color="primary"/></div>
+      </form>
       <q-form @submit="onSubmit" class="q-gutter-md">
         <div class="q-pa-sm row"><q-input v-model="responseToSubmit.data.name" filled type="name" hint="Name" /></div>
         <div class="q-pa-sm row"><q-input v-model="responseToSubmit.data.tel" filled type="tel" hint="Telephone number" /></div>

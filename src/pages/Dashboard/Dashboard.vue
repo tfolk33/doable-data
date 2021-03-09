@@ -40,7 +40,7 @@ export default {
   methods: {
     ...mapActions('forms', ['setCurrentForm']),
     copyFormLink (formId) {
-      copyToClipboard(`http://doabledata.com/#/forms/${this.$route.params.uid}/${formId}`)
+      copyToClipboard(`http://doabledata.com/?apiKey=AIzaSyCvCRpBxBaa4orYy6xjapwDUB2nQD28Vnc&oobCode=JXEeQjDnd9CZynARmW8g8SX4d2UyJGhnMe9NYfpA5bkAAAF4GC7iBg&mode=signIn&lang=en#/forms/${this.$route.params.uid}/${formId}`)
     },
     viewData (uid, id) {
       this.setCurrentForm(id)

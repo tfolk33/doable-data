@@ -1,5 +1,9 @@
 <template>
   <div class="q-pa-lg row" style="padding: 5% 10% 10% 10%">
+    <form @submit="sendLink" class="q-gutter-md">
+        <div class="q-pa-sm col"><q-input v-model="sendEmail" filled hint="Email to send form to" /></div>
+        <div class="q-pa-sm row"><q-btn label="Send Form to Email" type="submit" color="primary"/></div>
+    </form>
     <q-form @submit="onSubmit" class="form">
       <div class="q-pa-sm row"><h4 class="q-ma-none">Rental Agreement</h4></div>
       <hr />
@@ -312,6 +316,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { sendSignInLink } from 'src/functions/send-email-link'
 
 export default {
   beforeMount: function () {
@@ -320,6 +325,7 @@ export default {
   },
   data () {
     return {
+      sendEmail: '',
       responseToSubmit: {
         formId: 'ski-rental-agreement',
         data: {
@@ -375,6 +381,10 @@ export default {
         icon: 'cloud_done',
         message: 'Submitted'
       })
+    },
+    sendLink () {
+      console.log('email', this.sendEmail)
+      sendSignInLink(this.sendEmail)
     }
   }
 }
